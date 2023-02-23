@@ -1,15 +1,15 @@
-import esriConfig from "@arcgis/core/config.js";
+import esriConfig from "@arcgis/core/config";
 import Map from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import Graphic from "@arcgis/core/Graphic";
-import geometryEngine from "@arcgis/core/geometry/geometryEngine";
+import * as geometryEngine from "@arcgis/core/geometry/geometryEngine";
 
 esriConfig.assetsPath = "./assets";
 esriConfig.apiKey = "AAPK4cf070f48d9447b2af48df14234fb1c1iQX7jgpsU_O_g6eHZ7JOvND6f5_H5aiAembWWExxH_7g1-pPgwzqDxd8MJe2N5JZ";
 const map = new Map({
-  basemap: "topo-vector"
+  basemap: "hybrid"
 });
 const bufferLayer = new GraphicsLayer();
 const graphicsLayer = new GraphicsLayer();
@@ -30,9 +30,9 @@ const MyLayer = new FeatureLayer({
 });
 map.add(bufferLayer);
 map.add(graphicsLayer);
-map.add(MyLayer);
+//map.add(MyLayer);
 var option = 0
-document.getElementById('bufferBtn').addEventListener("click", submit)
+/*document.getElementById('bufferBtn').addEventListener("click", submit)
 function submit(){
   const e = document.getElementById('dropdown');
   option = e.value;
@@ -54,4 +54,4 @@ MyLayer.queryFeatures().then((results)=>{
     // add graphic to map
     graphicsLayer.add(bufferGraphic);
   });
-})}
+})}*/
