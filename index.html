@@ -8,20 +8,24 @@
     <title>Document</title>
 </head>
 <body>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
     <body>
         <script type="module" src="./index.js"></script>
         <div id="viewDiv"></div>
         <div id="dropdownDiv">
             <select name="dropdown" id="dropdown">
                 <option value="0">No buffer</option>
+                <option value="5000">5000nm buffer</option>
                 <option value="1000">1000nm buffer</option>
                 <option value="500">500nm buffer</option>
                 <option value="250">250nm buffer</option>
                 <option value="100">100nm buffer</option>
             </select>
-            <button id="bufferBtn">Buffer</button>
         </div>
+        <div name="bufferBtns">
+            <button name="bufferBtn" id="bufferBtn">Buffer</button>
+            <button name="clearBtn" id="clearBtn">Clear</button>
+        </div>
+        <div name="tableDiv" id="tableDiv"></div>
         
     </body>
 </body>
