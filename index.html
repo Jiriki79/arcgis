@@ -10,7 +10,17 @@
 <body>
     <body>
         <script type="module" src="./index.js"></script>
-        <div id="viewDiv"></div>
+        <div name="appContainer" id="appContainer">
+            <div id="viewDiv"></div>
+            <div id="mainDiv" class="esri-widget">
+                <label class="switch">
+                    <input id="checkboxId" type="checkbox" />
+                    <span class="slider round"></span>
+                </label>
+                <label class="labelText" id="labelText">Show Editor</label>
+            </div>
+            
+        </div>
         <div id="dropdownDiv">
             <select name="dropdown" id="dropdown">
                 <option value="0">No buffer</option>
