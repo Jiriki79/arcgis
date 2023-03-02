@@ -8,6 +8,8 @@ import * as geometryEngine from "@arcgis/core/geometry/geometryEngine";
 import FeatureTable from '@arcgis/core/widgets/FeatureTable'
 import Editor from "@arcgis/core/widgets/Editor"
 
+var point
+
 esriConfig.assetsPath = "./assets";
 esriConfig.apiKey = "AAPK4cf070f48d9447b2af48df14234fb1c1iQX7jgpsU_O_g6eHZ7JOvND6f5_H5aiAembWWExxH_7g1-pPgwzqDxd8MJe2N5JZ";
 const map = new Map({
@@ -21,31 +23,6 @@ const view = new MapView({
   zoom: 9,
   container: "viewDiv"
 });
-var point
-view.on('click',(event)=>{
-  point = event.mapPoint;
-  const e = document.getElementById('dropdown');
-  var option = e.value;
-  const sym = {
-    type: "simple-fill",
-    color: [227, 139, 79, 0.25],
-    style: "solid",
-    outline: {
-      color: [255, 255, 255, 255],
-      width: 1
-    }
-  };
-  
-  MyLayer.queryFeatures().then((results)=>{
-    results.features.map(feat => {
-      const buffer = geometryEngine.geodesicBuffer(point, option, "nautical-miles");
-      graphicsLayer.removeAll()
-      var bufferGraphic = new Graphic({geometry: buffer, symbol: sym});
-      // add graphic to map
-      graphicsLayer.add(bufferGraphic);
-    });
-  })
-})
 
 const Content = {
   "title": "API Test",
@@ -105,7 +82,7 @@ const editor = new Editor({
 
 const checkbox = document.getElementById('checkboxId')
 
-checkbox.onchange=()=>{toggle();}
+checkbox.onchange=()=>{toggle()}
 
 function toggle(){
   if (checkbox.checked){
@@ -114,4 +91,34 @@ function toggle(){
     view.ui.remove(editor)
   }
 }
+
+const bufferCkbk = document.getElementById('bufferCkbk')
+
+view.on('click',(event)=>{
+  if (bufferCkbk.checked){
+    point = event.mapPoint;
+    const e = document.getElementById('dropdown');
+    var option = e.value;
+    const sym = {
+      type: "simple-fill",
+      color: [227, 139, 79, 0.25],
+      style: "solid",
+      outline: {
+        color: [255, 255, 255, 255],
+        width: 1
+      }
+    };
+    
+    MyLayer.queryFeatures().then((results)=>{
+      results.features.map(feat => {
+        const buffer = geometryEngine.geodesicBuffer(point, option, "nautical-miles");
+        graphicsLayer.removeAll()
+        var bufferGraphic = new Graphic({geometry: buffer, symbol: sym});
+        // add graphic to map
+        graphicsLayer.add(bufferGraphic);
+      });
+    })
+  }
+})
+
 
