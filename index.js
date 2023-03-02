@@ -5,18 +5,19 @@ import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 import GraphicsLayer from "@arcgis/core/layers/GraphicsLayer";
 import Graphic from "@arcgis/core/Graphic";
 import * as geometryEngine from "@arcgis/core/geometry/geometryEngine";
+import FeatureTable from '@arcgis/core/widgets/FeatureTable'
 
 esriConfig.assetsPath = "./assets";
 esriConfig.apiKey = "AAPK4cf070f48d9447b2af48df14234fb1c1iQX7jgpsU_O_g6eHZ7JOvND6f5_H5aiAembWWExxH_7g1-pPgwzqDxd8MJe2N5JZ";
 const map = new Map({
-  basemap: "hybrid"
+  basemap: "arcgis-dark-gray"
 });
 const bufferLayer = new GraphicsLayer();
 const graphicsLayer = new GraphicsLayer();
 const view = new MapView({
   map: map,
   center: [-97.305923,37.679377],
-  zoom: 10, // scale: 72223.819286
+  zoom: 9,
   container: "viewDiv"
 });
 view.when(()=>console.log('view ready'))
@@ -26,16 +27,18 @@ const Content = {
   "content": "<b>ID:</b> {ObjectID}<br><b>Location:</b> {place_name}<br>"
 }
 const MyLayer = new FeatureLayer({
-  url: "https://services8.arcgis.com/TrLhDuWxkcSkFAjt/arcgis/rest/services/api_test/FeatureServer/0"
+  url: "https://services8.arcgis.com/TrLhDuWxkcSkFAjt/arcgis/rest/services/api_test/FeatureServer/0",
+  outFields:['*'],
+  popupTemplate: Content
 });
 map.add(bufferLayer);
 map.add(graphicsLayer);
-//map.add(MyLayer);
+map.add(MyLayer);
 var option = 0
-/*document.getElementById('bufferBtn').addEventListener("click", submit)
+document.getElementById('bufferBtn').addEventListener("click", submit)
 function submit(){
   const e = document.getElementById('dropdown');
-  option = e.value;
+  var option = e.value;
   const sym = {
     type: "simple-fill",
     color: [227, 139, 79, 0.25],
@@ -45,13 +48,23 @@ function submit(){
       width: 1
     }
   };
-   
-MyLayer.queryFeatures().then((results)=>{
-  results.features.map(feat => {
-    const buffer = geometryEngine.Buffer(feat.geometry, 200, "kilometers");
-    
-    bufferGraphic = new Graphic({geometry: buffer, symbol: sym});
-    // add graphic to map
-    graphicsLayer.add(bufferGraphic);
-  });
-})}*/
+  MyLayer.queryFeatures().then((results)=>{
+    results.features.map(feat => {
+      const buffer = geometryEngine.geodesicBuffer(feat.geometry, option, "nautical-miles");
+      graphicsLayer.removeAll()
+      var bufferGraphic = new Graphic({geometry: buffer, symbol: sym});
+      // add graphic to map
+      graphicsLayer.add(bufferGraphic);
+    });
+  })
+};
+
+const featureTable = new FeatureTable({
+  view:view,
+  layer:MyLayer,
+  container:"tableDiv",
+  editingEnabled:true,
+  hiddenFields:['OBJECTID']
+})
+
+document.getElementById('clearBtn').addEventListener("click", ()=>{graphicsLayer.removeAll()});
