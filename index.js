@@ -7,7 +7,6 @@ import Graphic from "@arcgis/core/Graphic";
 import * as geometryEngine from "@arcgis/core/geometry/geometryEngine";
 import FeatureTable from '@arcgis/core/widgets/FeatureTable'
 import Editor from "@arcgis/core/widgets/Editor"
-import Query from "@arcgis/core/rest/support/Query";
 
 esriConfig.assetsPath = "./assets";
 esriConfig.apiKey = "AAPK4cf070f48d9447b2af48df14234fb1c1iQX7jgpsU_O_g6eHZ7JOvND6f5_H5aiAembWWExxH_7g1-pPgwzqDxd8MJe2N5JZ";
