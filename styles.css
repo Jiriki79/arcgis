@@ -1,18 +1,43 @@
+@import "https://js.arcgis.com/4.26/@arcgis/core/assets/esri/themes/dark/main.css";
+
 #dropdownDiv{
-  display: inline-block;
   width: 100px;
   height: auto;
+  float:  left;
+  margin-right: 10px;
 }
 
-html,body,#viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 600px;
-      width: 600px;
-      float: left;
-    }
+#bufferBtn, #clearBtn{
+  width: 50px;
+  height: 20px;
+  float: left;
+  padding: 0;
+  margin: 0;
+}
 
+html,body{
+  padding: 0;
+  margin: 0;
+  height: auto;
+  width: auto;
+}
+
+#tableDiv{
+  height: 300px;
+  float: right;
+  padding: 0;
+  margin: 0;
+}
+
+#viewDiv {
+  padding: 0;
+  margin: 0;
+  height: 600px;
+  width: 600px;
+  float: left
+}
 body{
   background-color: #3f3f3f;
 }
+
 
